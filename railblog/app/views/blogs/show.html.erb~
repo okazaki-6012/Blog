@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>タイトル</strong>
+  <%= @blog.title %>
+</p>
+  <strong>日付<strong>
+  <%= @blog.dating.strftime("%Y%m%d") 
+
+  %>
+
+</p>
+<p>
+  <strong>記事</strong><br>
+  <%== 
+       @blog.word.gsub(/[<>&"\r\n]/,
+                       "<" => "&lt;", ">" => "&gt;", "&" => "&amp;", '"' => "&quot;",
+                       "\n" => "<br />")       
+  %>
+</p>
+
+<%= link_to '編集', edit_blog_path(@blog) %> |
+<%= link_to '記事一覧へ戻る', blogs_path %>
