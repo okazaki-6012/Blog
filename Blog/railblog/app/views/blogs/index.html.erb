@@ -22,7 +22,6 @@
 		  </thead>
 		  <tbody>
 			<% @blogs.each do |blog| %>
-			
 			<tr class="warning">
 			  <td><%= blog.dating.strftime("%Y年%m月%d日") %></td>
 			  <td><%= link_to truncate(blog.title, length: 10), blog, class: "link_title" %></td>
