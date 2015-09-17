@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+<h1>
+  <strong>
+    <%= @blog.title %>
+  </strong>
+</h1>
+<div id="date">
+  <%= 
+     @blog.dating.strftime("%Y年%m月%d日") 
+     %>
+</div>
+<div id="words">
+  <%== 
+     @blog.word.gsub(/[<>&"\r\n]/,
+			   "<" => "&lt;", ">" => "&gt;", "&" => "&amp;", '"' => "&quot;", "\n" => "<br />")
+  %>
+</div>

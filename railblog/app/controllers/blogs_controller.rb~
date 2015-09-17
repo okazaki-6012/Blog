@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
@@ -30,7 +31,7 @@ class BlogsController < ApplicationController
         @blog.dating = Time.now
       end
       if @blog.save
-        format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
+        format.html { redirect_to @blog, notice: '記事の作成をしました。' }
         format.json { render :show, status: :created, location: @blog }
       else
         format.html { render :new }
@@ -43,8 +44,11 @@ class BlogsController < ApplicationController
   # PATCH/PUT /blogs/1.json
   def update
     respond_to do |format|
+      if @blog.dating < Time.now
+        @blog.dating = Time.now
+      end
       if @blog.update(blog_param)
-        format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
+        format.html { redirect_to @blog, notice: '記事の更新をしました。' }
         format.json { render :show, status: :ok, location: @blog }
       else
         format.html { render :edit }
@@ -61,6 +65,7 @@ class BlogsController < ApplicationController
       format.html { redirect_to blogs_url, notice: 'Blog was successfully destroyed.' }
       format.json { head :no_content }
     end
+
   end
 
   private

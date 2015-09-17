@@ -5,7 +5,12 @@ class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.all
+    page_size = 5 # 表示件数
+    @page_num = params[:page] == nil ? 1 : params[:page].to_i; # 現在のページ数
+    @page_max = Blog.count/page_size
+    # @blogs = Blog.offset(page_size * (@page_num - 1)).limit(page_size).order(dating: :desc)
+    
+    @blogs = Blog.page(params[:page]).per(5).order(:id)
   end
 
   # GET /blogs/1
