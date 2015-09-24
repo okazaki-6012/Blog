@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Railblog</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <head>
+	<title>Railblog</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-  <%= csrf_meta_tags %>
-</head>
-<body>
+	<%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<div class="container">
-  <div class="row">
-    <%= yield %>
-  </div>
-</div>
+	<div class="container">
+	  <div class="row">
+		<ul class="nav nav-tabs">
+		  <li class="active"><a href="#tab1" data-toggle="tab">HOME</a></li>
+		  <li><a href="#tab2" data-toggle="tab">Management</a></li>
+		</ul>
 
-</body>
+		<div class="tab-content">
+		  <div class="tab-pane fade in active" id="tab1">
+			<%= yield %>
+		  </div>
+
+		  <div class="tab-pane fade" id="tab2">
+			<%= yield(:management) %>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+  </body>
 </html>

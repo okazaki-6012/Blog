@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
-<h1>
-  <strong>
-    <%= @blog.title %>
-  </strong>
-</h1>
-<div id="date">
+<div>
+  <span id="title">
+	<%= @blog.title %>
+  </span>
+  <span  id="date">
   <%= 
-     @blog.dating.strftime("%Y年%m月%d日") 
-     %>
+    @blog.dating.strftime("%Y年%m月%d日") 
+  %>
+  </span>
 </div>
 <div id="words">
   <%== 
