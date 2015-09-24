@@ -1,4 +1,31 @@
-<h1>home画面</h1>
+<div id="home">
+  <h1>home画面</h1>
+  <div class="col-xs-2"></div>
+  <div class="col-xs-8">
+	<% @blogs.each do |blog| %>
+	<div>
+	  <span class="title">
+		<%= blog.title %>
+	  </span>
+	  <span  class="date">
+		<%= 
+		   blog.dating.strftime("%Y年%m月%d日") 
+		   %>
+	  </span>
+	</div>
+	<div class="words">
+	  <%== 
+		 blog.word.gsub(/[<>&"\r\n]/,
+							  "<" => "&lt;", ">" => "&gt;", "&" => "&amp;", '"' => "&quot;", "\n" => "<br />")
+	  %>
+	</div> 
+	<% end %>
+  <!-- さらに表示 -->
+	<%= paginate(@blogs) %>
+  </div>
+  <div class="col-xs-2"></div>
+</div> 
+
 
 <% content_for(:management) do %>
 <div id="content">

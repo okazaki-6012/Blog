@@ -1,6 +1,6 @@
 $(function(){
 	$.pjax({
-		area:'#content',
+		area:'#content, #home',
 	        link:'a:not([target])'
 	      });
 });

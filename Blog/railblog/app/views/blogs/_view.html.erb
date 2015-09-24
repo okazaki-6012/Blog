@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 <div>
-  <span id="title">
+  <span class="title">
 	<%= @blog.title %>
   </span>
-  <span  id="date">
+  <span  class="date">
   <%= 
     @blog.dating.strftime("%Y年%m月%d日") 
   %>
   </span>
 </div>
-<div id="words">
+<div class="words">
   <%== 
      @blog.word.gsub(/[<>&"\r\n]/,
 			   "<" => "&lt;", ">" => "&gt;", "&" => "&amp;", '"' => "&quot;", "\n" => "<br />")
