@@ -1,6 +1,7 @@
 <h1>記事の編集</h1>
 
-<%= render 'form' %>
+<!-- 記事の編集 -->
+<%= render partial: 'form', locals: {blog: @blog} %>
 
 <%= link_to '詳細', @blog, class: "btn btn-default" %>
-<%= link_to 'HOMEへ戻る', blogs_path, class: "btn btn-success" %>
+<%= link_to '記事一覧へ戻る', blogs_management_path, class: "btn btn-success" %>

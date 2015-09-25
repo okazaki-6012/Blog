@@ -10,23 +10,25 @@
   <body>
 
 	<div class="container">
-	  <div class="row">
+	  <div class="row well">
 		<ul class="nav nav-tabs">
-		  <li class="active"><a href="#tab1" data-toggle="tab">HOME</a></li>
-		  <li><a href="#tab2" data-toggle="tab">Management</a></li>
+		   <li <%= if request.path_info == '/blogs' then
+				 'class=active' else '' end %>
+		  ><%= link_to 'HOME', blogs_path %></li>
+		  <li <%= if request.path_info == '/blogs/management' ||
+				  request.path_info =~ /\/blogs\/\d/ then
+				 'class=active' else '' end %>
+		  ><%= link_to 'Management', blogs_management_path %></li>
+		  <li <%= if request.path_info == '/blogs/new' then
+				 'class=active' else '' end %>
+		  ><%= link_to '記事を投稿', new_blog_path %></li>
 		</ul>
-
 		<div class="tab-content">
-		  <div class="tab-pane fade in active" id="tab1">
-			<%= yield %>
-		  </div>
-
-		  <div class="tab-pane fade" id="tab2">
-			<%= yield(:management) %>
-		  </div>
+		  <%= yield %>
 		</div>
 	  </div>
 	</div>
 
   </body>
 </html>
+ 

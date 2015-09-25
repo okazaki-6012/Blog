@@ -8,6 +8,10 @@ class BlogsController < ApplicationController
     @blogs = Blog.page(params[:page]).per(5).order(:id)
   end
 
+  def management
+    @blogs = Blog.page(params[:page]).per(5).order(:id)
+  end
+
   # GET /blogs/1
   # GET /blogs/1.json
   def show

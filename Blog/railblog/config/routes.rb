@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :blogs, format: false
+  resources :blogs, format: false, constraints: {id: /[0-9]{1,3}/}
+  # resource :management, format: false
+  get 'blogs/management', format: false
   root to: 'blogs#index'
+ 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
