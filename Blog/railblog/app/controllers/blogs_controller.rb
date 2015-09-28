@@ -4,8 +4,16 @@ class BlogsController < ApplicationController
 
   # GET /blogs
   # GET /blogs.json
-  def index    
-    @blogs = Blog.page(params[:page]).per(5).order(:id)
+  def index
+    search = params[:search]
+    if search.blank? then 
+      # Blog.ページ.表示数.ソート対象
+      @blogs = Blog.page(params[:page]).per(5).order(:id)
+    else
+      tags_id = Tag.where(:name => search.split(",")).pluck(:id)
+      blogs_id = BlogTag.where(:tag_id => tags_id).pluck(:blog_id)
+      @blogs = Kaminari.paginate_array(Blog.where(:id => blogs_id)).page(params[:page]).per(5)
+    end
   end
 
   def management
@@ -30,11 +38,15 @@ class BlogsController < ApplicationController
   # POST /blogs.json
   def create
     @blog = Blog.new(blog_param)
-    respond_to do |format|
-      unless @blog.dating
+    respond_to do |format|        
+      unless @blog.dating then
         @blog.dating = Time.now
       end
       if @blog.save
+        tags = params[:tag].gsub(/\s|　/,"").split(",")
+        tags.each do |temp|
+          @blog.tag.find_or_create_by(name: temp)
+        end
         format.html { redirect_to @blog, notice: '記事の作成をしました。' }
         format.json { render :show, status: :created, location: @blog }
       else
@@ -52,6 +64,10 @@ class BlogsController < ApplicationController
         @blog.dating = Time.now
       end
       if @blog.update(blog_param)
+        tags = params[:tag].gsub(/\s|　/,"").split(",")
+        tags.each do |temp|
+          @blog.tag.find_or_create_by(name: temp)
+        end
         format.html { redirect_to @blog, notice: '記事の更新をしました。' }
         format.json { render :show, status: :ok, location: @blog }
       else

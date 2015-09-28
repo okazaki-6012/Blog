@@ -4,7 +4,7 @@
 
 .date{
 	text-align: right;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	text-decoration: underline;
 }
 
@@ -16,4 +16,9 @@
 
 .white{
 	background-color: #FFF;
+}
+
+.tag{
+	font-size: 1.3em;
+	font-weight: bolder;
 }

@@ -9,14 +9,18 @@
   <div class="words panel-body">
 	<%== 
        blog.word.gsub(/[<>&"\r\n]/,
-					 "<" => "&lt;", ">" => "&gt;", "&" => "&amp;", '"' => "&quot;", "\n" => "<br />")
+				 "<" => "&lt;", ">" => "&gt;", "&" => "&amp;", '"' => "&quot;", "\n" => "<br />")
 	%>
   </div>
   <div class="panel-footer">
+	<div class="tag">
+	  <% tags = Tag.where(:id => blog.tag_ids).pluck(:name)
+	     tags.each do |t| %>
+	       <%= link_to t, blogs_path(search: t) %>
+	  <% end %>
+	</div>
 	<div  class="date">
-	  <%= 
-		 blog.dating.strftime("%Y年%m月%d日") 
-	  %>
+	  <%= blog.dating.strftime("%Y年%m月%d日") %>
 	</div>
   </div>
 </div>

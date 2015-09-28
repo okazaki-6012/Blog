@@ -21,7 +21,8 @@
   </div>
   <div class="field">
 	<%= label_tag :tag, :Tag %><br>
-	<%= text_field_tag :tag, params[:tag] %>
+	<% tags = Tag.where(:id => @blog.tag_ids).pluck(:name).join(",") %>
+	<%= text_field_tag :tag, tags %>
   </div>
   <div class="actions">
     <%= f.submit '投稿', class: "btn btn-warning" %>
