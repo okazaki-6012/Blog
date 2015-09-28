@@ -1,0 +1,7 @@
+<%= form_for(@image) do |f| %>
+<div class="field">
+  <label>画像を参照
+  <%= f.file_field :file %></label>
+  <%= f.submit '送信' %>
+</div>
+<% end %>

@@ -12,16 +12,19 @@
 	<div class="container">
 	  <div class="row well">
 		<ul class="nav nav-tabs">
-		   <li <%= if request.path_info == '/blogs' then
+		  <li <%= if request.path_info == blogs_path then
 				 'class=active' else '' end %>
 		  ><%= link_to 'HOME', blogs_path %></li>
-		  <li <%= if request.path_info == '/blogs/management' ||
+		  <li <%= if request.path_info == blogs_management_path ||
 				  request.path_info =~ /\/blogs\/\d/ then
 				 'class=active' else '' end %>
 		  ><%= link_to 'Management', blogs_management_path %></li>
-		  <li <%= if request.path_info == '/blogs/new' then
+		  <li <%= if request.path_info == new_blog_path then
 				 'class=active' else '' end %>
 		  ><%= link_to '記事を投稿', new_blog_path %></li>
+		  <li <%= if request.path_info == new_image_path then
+				 'class=active' else '' end %>
+		  ><%= link_to '画像を投稿', new_image_path %></li>
 		</ul>
 		<div class="tab-content">
 		  <%= yield %>

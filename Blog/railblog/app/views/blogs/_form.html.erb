@@ -21,6 +21,7 @@
   </div>
   <div class="field">
 	<%= label_tag :tag, :Tag %><br>
+	記入例：UMA, UFO, etc..のように「,」で区切ることでTagを分けることができます<br>
 	<% tags = Tag.where(:id => @blog.tag_ids).pluck(:name).join(",") %>
 	<%= text_field_tag :tag, tags %>
   </div>
