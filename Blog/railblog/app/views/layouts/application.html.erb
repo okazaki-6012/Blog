@@ -15,6 +15,10 @@
 		  <li <%= if request.path_info == blogs_path then
 				 'class=active' else '' end %>
 		  ><%= link_to 'HOME', blogs_path %></li>
+		  <li <%= if request.path_info == images_path  ||
+				  request.path_info =~ /\/images\/\d/ then
+				  'class=active' else '' end %>
+		  ><%= link_to 'Pictures', images_path %></li>
 		  <li <%= if request.path_info == blogs_management_path ||
 				  request.path_info =~ /\/blogs\/\d/ then
 				 'class=active' else '' end %>

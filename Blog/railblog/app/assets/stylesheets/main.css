@@ -22,3 +22,12 @@
 	font-size: 1.3em;
 	font-weight: bolder;
 }
+
+.image_mini{
+	width: 128px;
+	height: 128px;
+}
+
+.image_box{
+	display: inline-block;
+}

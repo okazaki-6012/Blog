@@ -1,74 +1,66 @@
+# -*- coding: utf-8 -*-
 class ImagesController < ApplicationController
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_image, only: [:show, :destroy]
 
-  # GET /images
-  # GET /images.json
   def index
-    @images = Image.all
+    @images = Image.page(params[:page]).per(15)
   end
 
-  # GET /images/1
-  # GET /images/1.json
-  def show
+  def show_image
+    @image = Image.find(params[:id])
+    send_data @image.file, type: @image.ctype, disposition: :inline    
   end
 
-  # GET /images/new
   def new
     @image = Image.new
   end
-
-  # GET /images/1/edit
-  def edit
-  end
-
-  # POST /images
-  # POST /images.json
-  def create
-    @image = Image.new(image_params)
-
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+ 
+  def create  
+    file = image_params[:file]
+    image = {}
+    if file != nil then
+      name = file.original_filename
+      image[:ctype] = File.extname(name).downcase
+      name = name.kconv(Kconv::SJIS, Kconv::UTF8)
+      image[:name] = name
+      image[:file] = file.read
     end
-  end
-
-  # PATCH/PUT /images/1
-  # PATCH/PUT /images/1.json
-  def update
+    perms = ['.jpg','.jpeg','.git','.png']
+    @image = Image.new(image)      
     respond_to do |format|
-      if @image.update(image_params)
-        format.html { redirect_to @image, notice: 'Image was successfully updated.' }
+      if !perms.include?@image.ctype
+        # 画像ファイルのみです
+        format.html { redirect_to new_image_path, notice: '画像ファイルのみ対応です。' }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      elsif @image.file.size > 1.megabyte
+        # ファイルサイズは1MB以下
+        format.html { redirect_to new_image_path, notice: 'ファイルサイズは1MB以下です。' }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      elsif @image.save then
+        format.html { redirect_to @image, notice: '送信完了' }
         format.json { render :show, status: :ok, location: @image }
       else
-        format.html { render :edit }
+        format.html { render 'index' }
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end
-
-  # DELETE /images/1
-  # DELETE /images/1.json
+  
   def destroy
     @image.destroy
     respond_to do |format|
-      format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
+      format.html { redirect_to images_url}
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+   
     def set_image
       @image = Image.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params[:image]
+      params.require(:image).permit(:name,:file)  
     end
 end

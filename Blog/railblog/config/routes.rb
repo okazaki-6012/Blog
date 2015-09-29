@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :blogs, format: false, constraints: {id: /[0-9]{1,3}/}
   resources :images, format: false
+  resources :images, format: false do
+    member do
+      get 'show_image'
+    end
+  end
   get 'blogs/management', format: false
   root to: 'blogs#index'
  
