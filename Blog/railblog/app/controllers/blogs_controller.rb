@@ -45,7 +45,8 @@ class BlogsController < ApplicationController
       if @blog.save
         tags = params[:tag].gsub(/\s|　/,"").split(",")
         tags.each do |temp|
-          @blog.tag.find_or_create_by(name: temp)
+          tag = Tag.find_or_create_by(name: temp)
+          BlogTag.find_or_create_by(blog_id: @blog.id, tag_id: tag.id )
         end
         format.html { redirect_to @blog, notice: '記事の作成をしました。' }
         format.json { render :show, status: :created, location: @blog }
@@ -64,9 +65,11 @@ class BlogsController < ApplicationController
         @blog.dating = Time.now
       end
       if @blog.update(blog_param)
+        @blog.tag.destroy_all
         tags = params[:tag].gsub(/\s|　/,"").split(",")
         tags.each do |temp|
-          @blog.tag.find_or_create_by(name: temp)
+          tag = Tag.find_or_create_by(name: temp)
+          BlogTag.find_or_create_by(blog_id: @blog.id, tag_id: tag.id )
         end
         format.html { redirect_to @blog, notice: '記事の更新をしました。' }
         format.json { render :show, status: :ok, location: @blog }
