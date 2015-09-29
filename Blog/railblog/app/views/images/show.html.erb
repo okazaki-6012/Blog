@@ -1,4 +1,4 @@
 <p id="notice"><%= notice %></p>
 <%= image_tag show_image_image_path(@image) %><br>
-<%= link_to '削除', @image, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<%= link_to '削除', @image, method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger" %>
 <%= link_to 'Back', images_path, class: "btn btn-success" %>

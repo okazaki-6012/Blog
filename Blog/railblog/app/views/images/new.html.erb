@@ -2,7 +2,7 @@
 <%= form_for(@image) do |f| %>
 <div class="field">
   <label>画像を参照
-  <%= f.file_field :file %></label>
-  <%= f.submit '送信' %>
+  <%= f.file_field :file %></label><br>
+  <%= f.submit '送信', class: "btn btn-warning" %>
 </div>
 <% end %>

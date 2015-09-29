@@ -3,7 +3,7 @@ class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :destroy]
 
   def index
-    @images = Image.page(params[:page]).per(15)
+    @images = Image.page(params[:page]).per(15).order(id: :desc)
   end
 
   def show_image
@@ -26,7 +26,7 @@ class ImagesController < ApplicationController
       image[:file] = file.read
     end
     perms = ['.jpg','.jpeg','.git','.png']
-    @image = Image.new(image)      
+    @image = Image.new(image)
     respond_to do |format|
       if !perms.include?@image.ctype
         # 画像ファイルのみです

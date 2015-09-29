@@ -8,16 +8,16 @@ class BlogsController < ApplicationController
     search = params[:search]
     if search.blank? then 
       # Blog.ページ.表示数.ソート対象
-      @blogs = Blog.page(params[:page]).per(5).order(:id)
+      @blogs = Blog.page(params[:page]).per(5).order(dating: :desc)
     else
       tags_id = Tag.where(:name => search.split(",")).pluck(:id)
       blogs_id = BlogTag.where(:tag_id => tags_id).pluck(:blog_id)
-      @blogs = Kaminari.paginate_array(Blog.where(:id => blogs_id)).page(params[:page]).per(5)
+      @blogs = Kaminari.paginate_array(Blog.where(:id => blogs_id).order(dating: :desc)).page(params[:page]).per(5)
     end
   end
 
   def management
-    @blogs = Blog.page(params[:page]).per(5).order(:id)
+    @blogs = Blog.page(params[:page]).per(5).order(dating: :desc)
   end
 
   # GET /blogs/1
